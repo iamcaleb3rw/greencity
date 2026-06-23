@@ -1,36 +1,244 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌍 Pollution Tracker
 
-## Getting Started
+A real-time environmental reporting and visualization platform that helps communities report, monitor, and analyze pollution incidents across districts using interactive maps and structured data insights.
 
-First, run the development server:
+---
+
+## ✨ Overview
+
+Pollution Tracker is a geospatial dashboard that collects environmental incident reports (waste dumping, contamination, and pollution events) and visualizes them on an interactive map.
+
+It is designed to support:
+- Citizen-driven reporting of environmental issues
+- Administrative monitoring of pollution hotspots
+- Data-informed cleanup and response planning
+
+Built with modern full-stack tooling and optimized for real-world scalability.
+
+---
+
+## 🚀 Features
+
+### 🗺️ Interactive Map Dashboard
+- Leaflet-powered map rendering
+- District-level choropleth visualization
+- Severity-based pollution markers
+- Tooltips and detailed popups per report
+- Smooth mobile-safe rendering with resize handling
+
+### 📊 Analytics & Insights
+- District-level aggregation of reports
+- Average severity scoring per region
+- Report density visualization
+- Status-based tracking (Reported → In Progress → Cleaned Up → Archived)
+
+### 🧾 Reporting System
+- Structured pollution incident reports
+- Severity classification (1–5 scale)
+- Waste type categorization
+- Geographic coordinate tracking
+- Optional anonymity support
+
+### 🌱 Seeded Demo Data
+- 50+ realistic sample reports
+- Multi-district distribution:
+  - Gasabo
+  - Kicukiro
+  - Nyarugenge
+- Randomized but realistic environmental patterns
+- Ready-to-use staging dataset
+
+---
+
+## 🧱 Tech Stack
+
+- **Next.js (App Router)** — Full-stack React framework
+- **React Leaflet** — Interactive maps
+- **PostgreSQL (Neon)** — Cloud database
+- **Drizzle ORM** — Type-safe database layer
+- **TypeScript** — Static typing
+- **Tailwind CSS** — UI styling
+- **Faker.js** — Synthetic data generation
+
+---
+
+## 🗂️ Database Schema
+
+### 📌 reports
+
+Stores environmental incident data:
+
+- `title`
+- `description`
+- `wasteType`
+- `severityLevel` (1–5)
+- `latitude`
+- `longitude`
+- `districtName`
+- `nearestLandmark`
+- `imageUrl` (optional)
+- `reportedBy`
+- `status`
+- `createdAt`
+- `updatedAt`
+
+---
+
+### 📌 status_logs
+
+Tracks lifecycle changes of reports:
+
+- `reportId`
+- `previousStatus`
+- `newStatus`
+- `updatedBy`
+- `notes`
+- `changedAt`
+
+This ensures full auditability of report progression.
+
+---
+
+## 🗺️ Supported Districts
+
+- Gasabo
+- Kicukiro
+- Nyarugenge
+
+Each district is visualized using severity-based color scaling and aggregated metrics.
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/pollution-tracker.git
+cd pollution-tracker
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. Install dependencies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+bun install
+```
 
-## Learn More
+or
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. Configure environment variables
 
-## Deploy on Vercel
+Create a `.env` file:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+DATABASE_URL=your_neon_postgres_connection_string
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### 4. Run database migrations
+
+```bash
+bun run db:migrate
+```
+
+---
+
+### 5. Seed the database
+
+```bash
+bun db/seed.ts
+```
+
+or
+
+```bash
+bun run seed
+```
+
+---
+
+### 6. Start development server
+
+```bash
+bun run dev
+```
+
+---
+
+## 🌱 Seeding System
+
+The project includes a deterministic seed generator that:
+
+- Creates 50 pollution reports
+- Randomly distributes them across districts
+- Assigns realistic severity levels
+- Generates geospatial coordinates
+- Simulates real-world reporting patterns
+
+This allows instant demo-ready environments.
+
+---
+
+## 🗺️ Map System Architecture
+
+The map layer includes:
+
+- Automatic resize handling using `ResizeObserver`
+- Leaflet `invalidateSize()` synchronization
+- Choropleth district overlays
+- Marker-based incident visualization
+- Mobile-responsive layout adaptation
+
+---
+
+## 📱 Responsive Behavior
+
+Optimized for:
+
+- Desktop dashboards
+- Tablet analytics views
+- Mobile reporting interfaces
+
+The map dynamically adapts to layout changes without rendering glitches.
+
+---
+
+## 🧠 Key Design Decisions
+
+- Separation of reports and status logs for audit history
+- Geo-clustering by district for performance scalability
+- Seeded dataset for reproducible demos
+- Strict TypeScript schema inference via Drizzle
+- Decoupled map rendering for UI stability
+
+---
+
+## 🔮 Future Improvements
+
+- Authentication & role-based access control
+- Real-time reporting (WebSockets / SSE)
+- Admin moderation dashboard
+- Time-based heatmap animations
+- Image upload for field reports
+- Mobile-first reporting app
+
+---
+
+## 👨‍💻 Author
+
+Built as a civic-tech project focused on environmental monitoring, urban cleanliness, and data-driven response systems.
+
+---
+
+## 📄 License
+
+MIT — free to use, modify, and extend.
